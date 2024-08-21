@@ -1,0 +1,192 @@
+Microsoft Windows [Version 10.0.18362.1316]
+(c) 2019 Microsoft Corporation. All rights reserved.
+
+C:\Users\rajesh>cd ..
+
+C:\Users>cd ..
+
+C:\>cd xampp
+
+C:\xampp>cd mysql
+
+C:\xampp\mysql>cd bin
+
+C:\xampp\mysql\bin>mysql -u root
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 10
+Server version: 10.4.32-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mydb               |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| test               |
++--------------------+
+6 rows in set (0.001 sec)
+
+MariaDB [(none)]> create database college;
+Query OK, 1 row affected (0.001 sec)
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| college            |
+| information_schema |
+| mydb               |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| test               |
++--------------------+
+7 rows in set (0.001 sec)
+
+MariaDB [(none)]> use college;
+Database changed
+MariaDB [college]> create table student in (roll as int, name as varchar(10), class as varchar(10), marks as float, age as int);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'in (roll as int, name as varchar(10), class as varchar(10), marks as float, a...' at line 1
+MariaDB [college]> create table student(roll as int, name as varchar(10), class as varchar(10), marks as float, age as int);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'as int, name as varchar(10), class as varchar(10), marks as float, age as int)' at line 1
+MariaDB [college]> create table student(roll int, name varchar(10), class varchar(10), marks float, age int);
+Query OK, 0 rows affected (0.012 sec)
+
+MariaDB [college]> desc student;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| roll  | int(11)     | YES  |     | NULL    |       |
+| name  | varchar(10) | YES  |     | NULL    |       |
+| class | varchar(10) | YES  |     | NULL    |       |
+| marks | float       | YES  |     | NULL    |       |
+| age   | int(11)     | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+5 rows in set (0.023 sec)
+
+MariaDB [college]> use student;
+ERROR 1049 (42000): Unknown database 'student'
+MariaDB [college]> use table student;
+ERROR 1049 (42000): Unknown database 'table'
+MariaDB [college]> insert into student values(1, 'Pooja', 'TE', 66.77, 20);
+Query OK, 1 row affected (0.002 sec)
+
+MariaDB [college]> insert into student values(2, 'Krupa', 'FE', 96.07, 18);
+Query OK, 1 row affected (0.007 sec)
+
+MariaDB [college]> insert into student values(3, 'Mandar', 'BE', 77.00, 21);
+Query OK, 1 row affected (0.003 sec)
+
+MariaDB [college]> insert into student values(4, 'Aarsh', 'TE', 80.06, 19);
+Query OK, 1 row affected (0.010 sec)
+
+MariaDB [college]> insert into student values(5, 'Prisha', 'TE', 90.56, 19);
+Query OK, 1 row affected (0.006 sec)
+
+MariaDB [college]> select * from student;
++------+--------+-------+-------+------+
+| roll | name   | class | marks | age  |
++------+--------+-------+-------+------+
+|    1 | Pooja  | TE    | 66.77 |   20 |
+|    2 | Krupa  | FE    | 96.07 |   18 |
+|    3 | Mandar | BE    |    77 |   21 |
+|    4 | Aarsh  | TE    | 80.06 |   19 |
+|    5 | Prisha | TE    | 90.56 |   19 |
++------+--------+-------+-------+------+
+5 rows in set (0.000 sec)
+
+MariaDB [college]> delete from student where roll=4;
+Query OK, 1 row affected (0.002 sec)
+
+MariaDB [college]> select * from student;
++------+--------+-------+-------+------+
+| roll | name   | class | marks | age  |
++------+--------+-------+-------+------+
+|    1 | Pooja  | TE    | 66.77 |   20 |
+|    2 | Krupa  | FE    | 96.07 |   18 |
+|    3 | Mandar | BE    |    77 |   21 |
+|    5 | Prisha | TE    | 90.56 |   19 |
++------+--------+-------+-------+------+
+4 rows in set (0.000 sec)
+
+MariaDB [college]> update student set marks = 77.44 where roll=3;
+Query OK, 1 row affected (0.011 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [college]> select * from student;
++------+--------+-------+-------+------+
+| roll | name   | class | marks | age  |
++------+--------+-------+-------+------+
+|    1 | Pooja  | TE    | 66.77 |   20 |
+|    2 | Krupa  | FE    | 96.07 |   18 |
+|    3 | Mandar | BE    | 77.44 |   21 |
+|    5 | Prisha | TE    | 90.56 |   19 |
++------+--------+-------+-------+------+
+4 rows in set (0.000 sec)
+
+MariaDB [college]> update student set marks = marks+0.5;
+Query OK, 4 rows affected (0.010 sec)
+Rows matched: 4  Changed: 4  Warnings: 0
+
+MariaDB [college]> select * from student;
++------+--------+-------+-------+------+
+| roll | name   | class | marks | age  |
++------+--------+-------+-------+------+
+|    1 | Pooja  | TE    | 67.27 |   20 |
+|    2 | Krupa  | FE    | 96.57 |   18 |
+|    3 | Mandar | BE    | 77.94 |   21 |
+|    5 | Prisha | TE    | 91.06 |   19 |
++------+--------+-------+-------+------+
+4 rows in set (0.000 sec)
+
+MariaDB [college]> truncate student;
+Query OK, 0 rows affected (0.022 sec)
+
+MariaDB [college]> select * from student;
+Empty set (0.000 sec)
+
+MariaDB [college]> insert into table student((1, 'Pooja', 'TE', 66.77, 20), (2, 'Krupa', 'FE', 96.07, 18), (3, 'Mandar', 'BE', 77.00, 21), (4, 'Aarsh', 'TE', 80.06, 19), (5, 'Prisha', 'TE', 90.56, 19));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'table student((1, 'Pooja', 'TE', 66.77, 20), (2, 'Krupa', 'FE', 96.07, 18), (...' at line 1
+MariaDB [college]> insert into student((1, 'Pooja', 'TE', 66.77, 20), (2, 'Krupa', 'FE', 96.07, 18), (3, 'Mandar', 'BE', 77.00, 21), (4, 'Aarsh', 'TE', 80.06, 19), (5, 'Prisha', 'TE', 90.56, 19));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '1, 'Pooja', 'TE', 66.77, 20), (2, 'Krupa', 'FE', 96.07, 18), (3, 'Mandar', 'B...' at line 1
+MariaDB [college]> insert into student values((1, 'Pooja', 'TE', 66.77, 20), (2, 'Krupa', 'FE', 96.07, 18), (3, 'Mandar', 'BE', 77.00, 21), (4, 'Aarsh', 'TE', 80.06, 19), (5, 'Prisha', 'TE', 90.56, 19));
+ERROR 1241 (21000): Operand should contain 1 column(s)
+MariaDB [college]> insert into student values(1, 'Pooja', 'TE', 66.77, 20), (2, 'Krupa', 'FE', 96.07, 18), (3, 'Mandar', 'BE', 77.00, 21), (4, 'Aarsh', 'TE', 80.06, 19), (5, 'Prisha', 'TE', 90.56, 19);
+Query OK, 5 rows affected (0.009 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+MariaDB [college]> select * from student;
++------+--------+-------+-------+------+
+| roll | name   | class | marks | age  |
++------+--------+-------+-------+------+
+|    1 | Pooja  | TE    | 66.77 |   20 |
+|    2 | Krupa  | FE    | 96.07 |   18 |
+|    3 | Mandar | BE    |    77 |   21 |
+|    4 | Aarsh  | TE    | 80.06 |   19 |
+|    5 | Prisha | TE    | 90.56 |   19 |
++------+--------+-------+-------+------+
+5 rows in set (0.000 sec)
+
+MariaDB [college]>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
